@@ -8,20 +8,10 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+// import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import Login from './Views/Login';
 import Register from './Views/Register';
-import Index from './Views';
-
-const Drawer = createDrawerNavigator();
-const MyDrawer = () => {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Todos" component={Index} />
-    </Drawer.Navigator>
-  );
-};
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -38,11 +28,11 @@ const App = () => {
           name="Register"
           component={Register}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Inicio"
           component={MyDrawer}
           options={{headerShown: false}}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
