@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
@@ -7,55 +7,40 @@ import axios from 'axios';
 
 import url from './config';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      form: {
-        username: '',
-        name: '',
-        password: '',
-      },
-    };
-  }
+export const Register = ({ navigation }) => {
 
-  componentDidUpdate() {
-    console.log(this.state.form);
-  }
+  const [username, setUsername] = useState(null)
+  const [name, setName] = useState(null)
+  const [password, setPassword] = useState(null)
 
-  render() {
-    const {navigation} = this.props;
 
-    const handleChangeUsername = e => {
-      this.setState({
-        form: {
-          ...this.state.form,
-          username: e,
-        },
-      });
-    };
+  const handleChangeUsername = e => {
+    setUsername(e)
+  };
 
-    const handleChangeName = e => {
-      this.setState({
-        form: {
-          ...this.state.form,
-          name: e,
-        },
-      });
-    };
-    const handleChangePass = e => {
-      this.setState({
-        form: {
-          ...this.state.form,
-          password: e,
-        },
-      });
-    };
+  const handleChangeName = e => {
+    setName(e)
+  };
+  const handleChangePass = e => {
+    setPassword(e)
+  };
 
-    const handleSubmit = () => {
-      axios
-        .post(`${url}/user`, this.state.form)
-        .then(function (response) {
+  const handleSubmit = () => {
+
+    let header = {
+      "Content-Type": "Application/json"
+    }
+
+    let data = {
+      username,
+      name,
+      password
+    }
+
+    axios
+      .post(`${url}/register`, data, header)
+      .then(function (response) {
+        if (response.data.ok) {
           Alert.alert(
             'Genial!!',
             `${response.data.user.name} su registro fue exitoso`,
@@ -65,36 +50,44 @@ class Register extends Component {
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel',
               },
-              {text: 'OK', onPress: () => navigation.replace('Inicio')},
+              { text: 'OK', onPress: () => navigation.replace('Login') },
             ],
           );
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    };
+        } else {
+          Alert.alert(
+            'Error',
+            `${response.data.msg}`,
+            [
+              { text: 'Intentar de nuevo' },
+            ],
+          );
+        }
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
 
-    return (
-      <View style={styles.container}>
-        <Title />
-        <View style={styles.loginForm}>
-          <Input
-            onChange={handleChangeUsername}
-            placeholder="Nombre de usuario"
-          />
-          <Input onChange={handleChangeName} placeholder="Nombre" />
-          <Input
-            pass={true}
-            onChange={handleChangePass}
-            placeholder="Contraseña"
-          />
-        </View>
-        <View style={styles.buttons}>
-          <Button handlePress={handleSubmit} title="Registrarse" />
-        </View>
+  return (
+    <View style={styles.container}>
+      <Title />
+      <View style={styles.loginForm}>
+        <Input
+          onChange={handleChangeUsername}
+          placeholder="Nombre de usuario"
+        />
+        <Input onChange={handleChangeName} placeholder="Nombre" />
+        <Input
+          pass={true}
+          onChange={handleChangePass}
+          placeholder="Contraseña"
+        />
       </View>
-    );
-  }
+      <View style={styles.buttons}>
+        <Button handlePress={handleSubmit} title="Registrarse" />
+      </View>
+    </View>
+  );
 }
 
 export default Register;
