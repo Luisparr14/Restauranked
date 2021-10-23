@@ -7,7 +7,7 @@ const RestaurantList = ({restaurant}) => (
       return (
         <Restaurant
           key={rest.id}
-          profile={rest.profile}
+          image={rest.image}
           name={rest.name}
           stars={rest.stars}
           location={rest.location}

@@ -1,78 +1,60 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import {Alert, StyleSheet, View} from 'react-native';
 import axios from 'axios';
-import url from './config'
+import url from './config';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
 
-export default function Login({ navigation }) {
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+export default function Login({navigation}) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChangePass = e => {
-    setPassword(e)
+    setPassword(e);
   };
 
   const handleChangeUser = e => {
-    setUsername(e)
+    setUsername(e);
   };
 
   const handleLogin = () => {
     let header = {
-      "Content-Type": "Application/json"
-    }
+      'Content-Type': 'Application/json',
+    };
 
     let data = {
       username,
-      password
-    }
+      password,
+    };
 
-    if(username===''||password===''){
-      Alert.alert(
-        'Error!!',
-        `Llene todos los campos por favor`,
-        [
-          { text: 'OK'},
-        ],
-      );
-    }else{
-      axios.post(`${url}/login`, data, header).
-        then(function (response) {
+    if (username === '' || password === '') {
+      Alert.alert('Error!!', 'Llene todos los campos por favor', [
+        {text: 'OK'},
+      ]);
+    } else {
+      axios
+        .post(`${url}/login`, data, header)
+        .then(function (response) {
           if (response.data.passwordV) {
-            Alert.alert(
-              'Genial!!',
-              `${response.data.msg}`,
-              [
-                { text: 'OK', onPress: () => navigation.replace('Inicio') },
-              ],
-            );
-          }else{
-            Alert.alert(
-              'Error!!',
-              `${response.data.msg}`,
-              [
-                { text: 'OK'},
-              ],
-            );
+            Alert.alert('Genial!!', `${response.data.msg}`, [
+              {text: 'OK', onPress: () => navigation.replace('Inicio')},
+            ]);
+          } else {
+            Alert.alert('Error!!', `${response.data.msg}`, [{text: 'OK'}]);
           }
         })
         .catch(function (error) {
           console.log(error, 'hola');
         });
     }
-
-  }
+  };
 
   return (
     <View style={styles.container}>
       <Title />
       <View style={styles.loginForm}>
-        <Input
-          placeholder="Usuario"
-          onChange={handleChangeUser}
-        />
+        <Input placeholder="Usuario" onChange={handleChangeUser} />
         <Input
           pass={true}
           placeholder="Contraseña"
@@ -80,7 +62,10 @@ export default function Login({ navigation }) {
         />
       </View>
       <View style={styles.buttons}>
-        <Button title="Ingresar" handlePress={() => handleLogin()} />
+        <Button
+          title="Ingresar"
+          handlePress={() => navigation.replace('Inicio')}
+        />
         <Button
           handlePress={() => navigation.replace('Register')}
           title="Registrarse"

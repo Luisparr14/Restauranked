@@ -8,10 +8,22 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import Login from './Views/Login';
 import Register from './Views/Register';
+import Index from './Views/Index';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer({navigation}) {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Por nombre" component={Index} />
+      <Drawer.Screen name="Por puntuacion" component={Index} />
+    </Drawer.Navigator>
+  );
+}
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -28,11 +40,11 @@ const App = () => {
           name="Register"
           component={Register}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Inicio"
           component={MyDrawer}
           options={{headerShown: false}}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
