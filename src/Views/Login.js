@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View, Text} from 'react-native';
 import axios from 'axios';
-import url from './config';
+import {url} from './config';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
@@ -34,7 +34,7 @@ export default function Login({navigation}) {
       ]);
     } else {
       axios
-        .post(`${url}/login`, data, header)
+        .post(`${url()}/login`, data, header)
         .then(function (response) {
           if (response.data.passwordV) {
             Alert.alert('Genial!!', `${response.data.msg}`, [
@@ -52,6 +52,7 @@ export default function Login({navigation}) {
 
   return (
     <View style={styles.container}>
+      <Text>{url()}</Text>
       <Title />
       <View style={styles.loginForm}>
         <Input placeholder="Usuario" onChange={handleChangeUser} />
@@ -62,10 +63,7 @@ export default function Login({navigation}) {
         />
       </View>
       <View style={styles.buttons}>
-        <Button
-          title="Ingresar"
-          handlePress={() => navigation.replace('Inicio')}
-        />
+        <Button title="Ingresar" handlePress={handleLogin} />
         <Button
           handlePress={() => navigation.replace('Register')}
           title="Registrarse"

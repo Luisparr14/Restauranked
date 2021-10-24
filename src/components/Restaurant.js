@@ -51,16 +51,14 @@ const styles = StyleSheet.create({
   },
   containerInfo: {
     flex: 0.6,
-    backgroundColor: 'cyan',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    backgroundColor: 'lightblue',
     width: '100%',
-    paddingLeft: 10,
-    paddingRight: 10,
+    fontSize: 17,
+    padding: 5,
   },
   image: {
     width: '100%',

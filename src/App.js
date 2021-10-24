@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer({navigation}) {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Por nombre" component={Index} />
+      <Drawer.Screen name="Todos" component={Index} />
       <Drawer.Screen name="Por puntuacion" component={Index} />
     </Drawer.Navigator>
   );

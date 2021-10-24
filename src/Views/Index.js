@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
-import url from './config';
+import {url} from './config';
 
 const Index = ({ navigation }) => {
   const [restaurantes, setRestaurantes] = useState(null);
@@ -21,7 +21,7 @@ const Index = ({ navigation }) => {
   const getResource = async (index) => {
     try {
       const data = await axios(
-        `${url}/restaurantes/${index}`
+        `${url()}/restaurantes/${index}`
       );
       setRestaurantes(data.data);
     } catch (error) {
@@ -30,7 +30,7 @@ const Index = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView onTouchStart={() => { console.log(restaurantes); }} style={{ minHeight: 600 }}>
+    <SafeAreaView style={{ minHeight: 600 }}>
       <ScrollView>
         {restaurantes && <RestaurantList restaurant={restaurantes} />}
       </ScrollView>
