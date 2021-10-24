@@ -1,36 +1,34 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
-import {url} from './config';
+import { url } from './config';
 
 const Index = ({ navigation }) => {
-  const [restaurantes, setRestaurantes] = useState(null);
+  const [restaurantes, setRestaurantes] = useState([]);
+  const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
 
-  React.useEffect(() => {
-    let index = navigation.getState().index;
-    navigation.addListener('focus', () => {
-      getResource(index);
-    });
+  useEffect(()=>{
+    getResource();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  },[]);
 
-
-  const getResource = async (index) => {
+  const getResource = () => {
+    setdireccion(`${url()}/restaurantes/${navigation.getState().index}`);
     try {
-      const data = await axios(
-        `${url()}/restaurantes/${index}`
-      );
-      setRestaurantes(data.data);
+      console.log(direccion);
+      axios(direccion).then((res => {
+        setRestaurantes(res.data);
+      }));
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <SafeAreaView style={{ minHeight: 600 }}>
+    <SafeAreaView onTouchStart={getResource} style={{ minHeight: 600 }}>
       <ScrollView>
         {restaurantes && <RestaurantList restaurant={restaurantes} />}
       </ScrollView>

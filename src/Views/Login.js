@@ -16,6 +16,7 @@ export default function Login({navigation}) {
 
   const handleChangeUser = e => {
     setUsername(e);
+	console.error(url());
   };
 
   const handleLogin = () => {
