@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View, Text} from 'react-native';
 import axios from 'axios';
-import {url} from './config';
+import {url} from './Config';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
@@ -16,7 +16,6 @@ export default function Login({navigation}) {
 
   const handleChangeUser = e => {
     setUsername(e);
-	console.error(url());
   };
 
   const handleLogin = () => {
@@ -52,7 +51,7 @@ export default function Login({navigation}) {
   };
 
   return (
-    <View style={styles.container}>
+    <View onTouchStart={() => url()} style={styles.container}>
       <Text>{url()}</Text>
       <Title />
       <View style={styles.loginForm}>

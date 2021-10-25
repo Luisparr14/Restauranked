@@ -13,6 +13,7 @@ import Login from './Views/Login';
 import Register from './Views/Register';
 import Index from './Views/Index';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {StatusBar} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,11 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
+      <StatusBar
+        backgroundColor="#dd222200"
+        barStyle="dark-content"
+        hidden={true}
+      />
       <Stack.Navigator>
         <Stack.Screen
           options={{title: 'Ingreso'}}

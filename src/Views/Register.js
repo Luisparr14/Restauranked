@@ -5,7 +5,7 @@ import Input from '../components/Input';
 import Title from '../components/Title';
 import axios from 'axios';
 
-import {url} from './config';
+import {url} from './Config';
 
 export const Register = ({navigation}) => {
   const [username, setUsername] = useState('');

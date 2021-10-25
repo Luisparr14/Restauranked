@@ -2,23 +2,22 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
-import { url } from './config';
+import { url } from './Config';
 
 const Index = ({ navigation }) => {
   const [restaurantes, setRestaurantes] = useState([]);
   const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
 
-  useEffect(()=>{
+  useEffect(() => {
     getResource();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getResource = () => {
     setdireccion(`${url()}/restaurantes/${navigation.getState().index}`);
     try {
-      console.log(direccion);
       axios(direccion).then((res => {
         setRestaurantes(res.data);
       }));
@@ -28,11 +27,11 @@ const Index = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView onTouchStart={getResource} style={{ minHeight: 600 }}>
-      <ScrollView>
-        {restaurantes && <RestaurantList restaurant={restaurantes} />}
-      </ScrollView>
-    </SafeAreaView>
+      <SafeAreaView onTouchStart={getResource} style={{ minHeight: 600 }}>
+        <ScrollView>
+          {restaurantes && <RestaurantList restaurant={restaurantes} />}
+        </ScrollView>
+      </SafeAreaView>
   );
 };
 
