@@ -27,7 +27,7 @@ const Index = ({ navigation }) => {
   };
 
   return (
-      <SafeAreaView onTouchStart={getResource} style={{ minHeight: 600 }}>
+      <SafeAreaView onTouchStart={getResource} style={{ minHeight: '100%' }}>
         <ScrollView>
           {restaurantes && <RestaurantList restaurant={restaurantes} />}
         </ScrollView>

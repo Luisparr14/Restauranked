@@ -14,6 +14,7 @@ import Register from './Views/Register';
 import Index from './Views/Index';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {StatusBar} from 'react-native';
+import AddRestaurant from './Views/AddRestaurant';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,6 +23,7 @@ function MyDrawer({navigation}) {
     <Drawer.Navigator>
       <Drawer.Screen name="Todos" component={Index} />
       <Drawer.Screen name="Por puntuacion" component={Index} />
+      <Drawer.Screen name="Agregar restaurante" component={AddRestaurant} />
     </Drawer.Navigator>
   );
 }
