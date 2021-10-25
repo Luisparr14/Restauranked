@@ -11,7 +11,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "RestauRankedRN_v1";
+    return "RestauRanked";
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
