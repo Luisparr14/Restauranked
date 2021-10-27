@@ -1,19 +1,17 @@
-import React, {Component} from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 
-class Input extends Component {
-  render() {
-    return (
-      <TextInput
-        style={styles.inputs}
-        placeholder={this.props.placeholder}
-        onChangeText={this.props.onChange}
-        value={this.props.value}
-        secureTextEntry={this.props.pass || false}
-      />
-    );
-  }
-}
+const Input = ({ placeholder, onChange, value, pass }) => {
+  return (
+    <TextInput
+      style={styles.inputs}
+      placeholder={placeholder}
+      onChangeText={onChange}
+      value={value}
+      secureTextEntry={pass || false}
+    />
+  );
+};
 
 export default Input;
 

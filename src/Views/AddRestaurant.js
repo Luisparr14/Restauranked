@@ -4,69 +4,126 @@ import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { launchImageLibrary } from 'react-native-image-picker';
-// import { url } from '../configs/Config';
+import { url } from '../Configs/Config';
 import { app } from '../Configs/firebase';
-import {
-  getStorage,
-  ref,
-  getDownloadURL,
-  uploadBytesResumable,
-} from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 
 const storage = getStorage(app);
 
 const AddRestaurant = ({ navigation }) => {
-  const [imageRestaurantUrl, setImageRestaurantUrl] = useState();
-  const [archivo, setArchivo] = useState([]);
-  const [seleccionado, setSeleccionado] = useState(false);
+  const [restaurantName, setRestaurantName] = useState('');
+  const [location, setLocation] = useState('');
+
+  const [file, setFile] = useState([]);
+  const [imageSelected, setimageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  async function uploadImage() {
-    if (seleccionado) {
-      try {
-        setLoading(true);
-        const refFile = ref(storage, `restaurantes/${archivo.fileName}`);
-        console.log(archivo);
-        const blob = await (await fetch(archivo.uri)).blob(); //Obtener blob de la imagen
-        await uploadBytesResumable(refFile, blob); //Subir imagen
-        const urlFile = await getDownloadURL(refFile); //Obtener url de la imagen
-        console.log(urlFile);
-        setLoading(false); //Cambiar estado de loading
-        setImageRestaurantUrl(urlFile); //Cambiar estado de url de la imagen
-        setSeleccionado(false); //Cambiar estado de seleccionado
-        setArchivo([]); //Cambiar estado de archivo
-        Alert.alert('Imagen subida');
-      } catch (error) {
-        console.error(error);
-        setLoading(false); //Cambiar estado de loading
-        setSeleccionado(false); //Cambiar estado de seleccionado
-      }
-    } else {
-      Alert.alert('No se ha seleccionado ninguna imagen');
+  const handleChangeRestaurantName = e => {
+    setRestaurantName(e);
+  };
+
+  const handleChangeLocation = e => {
+    setLocation(e);
+  };
+
+  const uploadImage = async () => {
+    let urlImage = '';
+    try {
+      const refFile = ref(storage, `restaurantes/${file.fileName}`);
+      const blob = await (await fetch(file.uri)).blob(); //get blob from uri
+      await uploadBytes(refFile, blob); //upload blob
+      await getDownloadURL(refFile).then(res => {
+        urlImage = res;
+      }); //get url from blob
+      Alert.alert('Imagen subida');
+      return urlImage;
+    } catch (error) {
+      Alert.alert('Error al subir imagen'); //show alert if error
+      setimageSelected(false); //change state imageSelected
+      return error;
     }
-  }
+  };
+
+  const handleSubmit = async () => {
+    if (restaurantName === '' || location === '') {
+      Alert.alert('Todos los campos son obligatorios');
+    } else {
+      if (!imageSelected) {
+        Alert.alert('Seleccione una imagen');
+      } else {
+        try {
+          setLoading(true);
+          const response = await axios.post(`${url()}/restaurantes`, {
+            name: restaurantName,
+            location,
+            image: '',
+          });
+          if (response.data.ok) {
+            let urlImage = await uploadImage();
+            await axios.put(`${url()}/restaurantes/${response.data.data.id}`, {
+              name: restaurantName,
+              location,
+              image: urlImage,
+            });
+            Alert.alert('Restaurante agregado');
+            setTimeout(() => {
+              navigation.navigate('Todos');
+            }, 1000);
+
+            setRestaurantName('');
+            setLocation('');
+            setimageSelected(false); //change state imageSelected
+            setFile([]); //change state file
+            setLoading(false);
+          } else {
+            setLoading(false);
+            setimageSelected(false); //change state imageSelected
+            Alert.alert('Error al agregar el restaurante');
+          }
+        } catch (error) {
+          setLoading(false);
+          setimageSelected(false); //change state imageSelected
+          console.error(error);
+          Alert.alert('Error al agregar el restaurante');
+        }
+      }
+    }
+  };
 
   const selectImage = () => {
     launchImageLibrary({ mediaType: 'photo' }, res => {
-      setArchivo(res.assets[0]);
-      setSeleccionado(true);
-      console.log(seleccionado);
+      if (res.didCancel) {
+        Alert.alert('Has cancelado la selección de imagen');
+      } else {
+        console.log(res);
+        setFile(res.assets[0]);
+        setimageSelected(true);
+      }
+      console.log(imageSelected, file);
     });
   };
 
   return (
     <View style={styles.container}>
-      {seleccionado && (
-        <Image style={styles.image} source={{ uri: archivo.uri }} />
+      {imageSelected && (
+        <Image style={styles.image} source={{ uri: file.uri }} />
       )}
       <View>
-        <Input placeholder="Restaurant Name" />
-        <Input placeholder="Ubicacion" />
+        <Input
+          onChange={handleChangeRestaurantName}
+          placeholder="Restaurant Name"
+          value={restaurantName}
+        />
+        <Input
+          value={location}
+          onChange={handleChangeLocation}
+          placeholder="Ubicacion"
+        />
       </View>
       {loading && <Text>Upload image...</Text>}
       <View>
         <Button title="Select Image" handlePress={selectImage} />
-        <Button title="Agregar restaurante" handlePress={uploadImage} />
+        <Button title="Agregar restaurante" handlePress={handleSubmit} />
       </View>
     </View>
   );

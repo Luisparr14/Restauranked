@@ -1,36 +1,41 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-const Restaurant = ({image, name, stars, location}) => (
-  <View style={styles.container}>
-    <View style={styles.containerImage}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: image,
-        }}
-      />
-    </View>
-    <View style={styles.containerInfo}>
-      <Text style={styles.text}>Nombre: {name}</Text>
-      <Text style={styles.text}>
-        Puntuacion: {stars}
+import { View, Text, StyleSheet, Image } from 'react-native';
+const Restaurant = ({ image, name, stars, location }) => {
+  if (image === null) {
+    image = 'https://cdn-icons.flaticon.com/png/512/2182/premium/2182242.png';
+  }
+  return (
+    <View style={styles.container}>
+      <View style={styles.containerImage}>
         <Image
-          style={{
-            width: 15,
-            height: 15,
-            alignSelf: 'flex-start',
-            padding: 5,
-          }}
+          style={styles.image}
           source={{
-            uri: 'https://cdn-icons-png.flaticon.com/512/616/616489.png',
+            uri: image,
           }}
         />
-      </Text>
-      <Text style={styles.text}>Ubicacion: {location}</Text>
+      </View>
+      <View style={styles.containerInfo}>
+        <Text style={styles.text}>Nombre: {name}</Text>
+        <Text style={styles.text}>
+          Puntuacion: {stars}
+          <Image
+            style={{
+              width: 15,
+              height: 15,
+              alignSelf: 'flex-start',
+              padding: 5,
+            }}
+            source={{
+              uri: 'https://cdn-icons-png.flaticon.com/512/616/616489.png',
+            }}
+          />
+        </Text>
+        <Text style={styles.text}>Ubicacion: {location}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 export default Restaurant;
 
