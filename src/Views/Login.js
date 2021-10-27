@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {Alert, StyleSheet, View, Text} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View, Text } from 'react-native';
 import axios from 'axios';
-import {url} from './Config';
+import { url } from '../Configs/Config';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,7 +30,7 @@ export default function Login({navigation}) {
 
     if (username === '' || password === '') {
       Alert.alert('Error!!', 'Llene todos los campos por favor', [
-        {text: 'OK'},
+        { text: 'OK' },
       ]);
     } else {
       axios
@@ -38,10 +38,10 @@ export default function Login({navigation}) {
         .then(function (response) {
           if (response.data.passwordV) {
             Alert.alert('Genial!!', `${response.data.msg}`, [
-              {text: 'OK', onPress: () => navigation.replace('Inicio')},
+              { text: 'OK', onPress: () => navigation.replace('Inicio') },
             ]);
           } else {
-            Alert.alert('Error!!', `${response.data.msg}`, [{text: 'OK'}]);
+            Alert.alert('Error!!', `${response.data.msg}`, [{ text: 'OK' }]);
           }
         })
         .catch(function (error) {

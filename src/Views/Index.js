@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
-import { url } from './Config';
+import { url } from '../Configs/Config';
 
 const Index = ({ navigation }) => {
   const [restaurantes, setRestaurantes] = useState([]);
