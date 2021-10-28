@@ -38,7 +38,13 @@ export default function Login({ navigation }) {
         .then(function (response) {
           if (response.data.passwordV) {
             Alert.alert('Genial!!', `${response.data.msg}`, [
-              { text: 'OK', onPress: () => navigation.replace('Inicio') },
+              {
+                text: 'OK',
+                onPress: () =>
+                  navigation.navigate('Inicio', {
+                    username,
+                  }),
+              },
             ]);
           } else {
             Alert.alert('Error!!', `${response.data.msg}`, [{ text: 'OK' }]);
@@ -65,7 +71,7 @@ export default function Login({ navigation }) {
       <View style={styles.buttons}>
         <Button title="Ingresar" handlePress={handleLogin} />
         <Button
-          handlePress={() => navigation.replace('Register')}
+          handlePress={() => navigation.navigate('Register')}
           title="Registrarse"
         />
       </View>
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     width: '100%',
   },

@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import axios from 'axios';
 
-import {url} from '../Configs/Config';
+import { url } from '../Configs/Config';
 
-export const Register = ({navigation}) => {
+export const Register = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +19,7 @@ export const Register = ({navigation}) => {
   const handleChangeName = e => {
     setName(e);
   };
+
   const handleChangePass = e => {
     setPassword(e);
   };
@@ -36,7 +37,7 @@ export const Register = ({navigation}) => {
 
     if (username === '' || password === '' || name === '') {
       Alert.alert('Error!!', 'Llene todos los campos por favor', [
-        {text: 'OK'},
+        { text: 'OK' },
       ]);
     } else {
       axios
@@ -52,12 +53,12 @@ export const Register = ({navigation}) => {
                   onPress: () => console.log('Cancel Pressed'),
                   style: 'cancel',
                 },
-                {text: 'OK', onPress: () => navigation.replace('Login')},
+                { text: 'OK', onPress: () => navigation.goBack() },
               ],
             );
           } else {
             Alert.alert('Error', `${response.data.msg}`, [
-              {text: 'Intentar de nuevo'},
+              { text: 'Intentar de nuevo' },
             ]);
           }
         })

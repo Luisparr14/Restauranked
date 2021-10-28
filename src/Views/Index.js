@@ -6,7 +6,8 @@ import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 
-const Index = ({ navigation }) => {
+const Index = ({ navigation, route }) => {
+  console.log(route);
   const [restaurantes, setRestaurantes] = useState([]);
   const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
 
@@ -27,11 +28,11 @@ const Index = ({ navigation }) => {
   };
 
   return (
-      <SafeAreaView onTouchStart={getResource} style={{ minHeight: '100%' }}>
-        <ScrollView>
-          {restaurantes && <RestaurantList restaurant={restaurantes} />}
-        </ScrollView>
-      </SafeAreaView>
+    <SafeAreaView onTouchStart={getResource} style={{ minHeight: '100%' }}>
+      <ScrollView>
+        {restaurantes && <RestaurantList username={'holi'} restaurant={restaurantes} />}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

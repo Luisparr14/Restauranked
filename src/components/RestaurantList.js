@@ -1,7 +1,7 @@
 import React from 'react';
 import Restaurant from './Restaurant';
 
-const RestaurantList = ({restaurant}) => (
+const RestaurantList = ({ restaurant, username }) => (
   <React.Fragment>
     {restaurant.map(rest => {
       return (
@@ -11,6 +11,7 @@ const RestaurantList = ({restaurant}) => (
           name={rest.name}
           stars={rest.stars}
           location={rest.location}
+          username={username}
         />
       );
     })}

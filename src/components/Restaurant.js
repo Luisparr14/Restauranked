@@ -1,7 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-const Restaurant = ({ image, name, stars, location }) => {
+import Button from './Button';
+
+const Restaurant = ({ image, name, stars, location, username }) => {
   if (image === null) {
     image = 'https://cdn-icons.flaticon.com/png/512/2182/premium/2182242.png';
   }
@@ -32,6 +34,8 @@ const Restaurant = ({ image, name, stars, location }) => {
           />
         </Text>
         <Text style={styles.text}>Ubicacion: {location}</Text>
+        <Text style={{ fontSize: 3 }}>{username}</Text>
+        <Button title="Calificar" width="90%" />
       </View>
     </View>
   );
@@ -41,12 +45,12 @@ export default Restaurant;
 
 const styles = StyleSheet.create({
   container: {
-    height: 140,
+    maxHeight: 150,
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#d22',
     margin: 7,
-    padding: 5,
+    padding: 8,
     borderRadius: 10,
   },
   containerImage: {

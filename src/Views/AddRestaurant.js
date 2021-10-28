@@ -86,7 +86,7 @@ const AddRestaurant = ({ navigation }) => {
             });
             Alert.alert('Restaurante agregado');
             setTimeout(() => {
-              // navigation.navigate('Todos');
+              navigation.navigate('Todos');
             }, 1000);
 
             setRestaurantName('');
