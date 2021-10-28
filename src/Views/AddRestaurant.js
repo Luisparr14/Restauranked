@@ -1,12 +1,19 @@
+/* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import ProgressBar from 'react-native-progress/Bar';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { url } from '../Configs/Config';
 import { app } from '../Configs/firebase';
-import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} from 'firebase/storage';
 
 const storage = getStorage(app);
 
@@ -17,7 +24,7 @@ const AddRestaurant = ({ navigation }) => {
   const [file, setFile] = useState([]);
   const [imageSelected, setimageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [progress, setProgress] = useState(0);
   const handleChangeRestaurantName = e => {
     setRestaurantName(e);
   };
@@ -31,11 +38,22 @@ const AddRestaurant = ({ navigation }) => {
     try {
       const refFile = ref(storage, `restaurantes/${file.fileName}`);
       const blob = await (await fetch(file.uri)).blob(); //get blob from uri
-      await uploadBytes(refFile, blob); //upload blob
+      const uploadTask = uploadBytesResumable(refFile, blob);
+      uploadTask.on(
+        'state_changed',
+        snapshot => {
+          const actualProgress =
+            snapshot.bytesTransferred / snapshot.totalBytes.toFixed(2);
+          setProgress(actualProgress);
+        },
+        error => {
+          console.log('error', error);
+        },
+      );
+      await uploadTask;
       await getDownloadURL(refFile).then(res => {
         urlImage = res;
       }); //get url from blob
-      Alert.alert('Imagen subida');
       return urlImage;
     } catch (error) {
       Alert.alert('Error al subir imagen'); //show alert if error
@@ -52,6 +70,7 @@ const AddRestaurant = ({ navigation }) => {
         Alert.alert('Seleccione una imagen');
       } else {
         try {
+          setProgress(0);
           setLoading(true);
           const response = await axios.post(`${url()}/restaurantes`, {
             name: restaurantName,
@@ -67,7 +86,7 @@ const AddRestaurant = ({ navigation }) => {
             });
             Alert.alert('Restaurante agregado');
             setTimeout(() => {
-              navigation.navigate('Todos');
+              // navigation.navigate('Todos');
             }, 1000);
 
             setRestaurantName('');
@@ -95,11 +114,9 @@ const AddRestaurant = ({ navigation }) => {
       if (res.didCancel) {
         Alert.alert('Has cancelado la selección de imagen');
       } else {
-        console.log(res);
         setFile(res.assets[0]);
         setimageSelected(true);
       }
-      console.log(imageSelected, file);
     });
   };
 
@@ -120,7 +137,18 @@ const AddRestaurant = ({ navigation }) => {
           placeholder="Ubicacion"
         />
       </View>
-      {loading && <Text>Upload image...</Text>}
+      {loading && (
+        <View style={styles.progress}>
+          <View>
+            <ProgressBar progress={progress} width={150} />
+          </View>
+          <View>
+            <Text style={{ marginLeft: 10 }}>
+              {(progress * 100).toFixed(2)}%
+            </Text>
+          </View>
+        </View>
+      )}
       <View>
         <Button title="Select Image" handlePress={selectImage} />
         <Button title="Agregar restaurante" handlePress={handleSubmit} />
@@ -137,6 +165,13 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     backgroundColor: '#443',
+  },
+
+  progress: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   image: {
