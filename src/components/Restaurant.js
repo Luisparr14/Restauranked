@@ -1,15 +1,51 @@
 /* eslint-disable react-native/no-inline-styles */
+import axios from 'axios';
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Button from './Button';
-
-const Restaurant = ({ image, name, stars, location, username }) => {
-  if (image === null) {
-    image = 'https://cdn-icons.flaticon.com/png/512/2182/premium/2182242.png';
+import { url } from '../Configs/Config';
+const Restaurant = ({
+  id,
+  image,
+  name,
+  stars,
+  location,
+  username,
+  navigation,
+}) => {
+  const [showRate, setShowRate] = React.useState(false);
+  const [inRate, setInRate] = React.useState(false);
+  async function getRate() {
+    await axios
+      .get(`${url()}/calificaciones/${id}/${username}`)
+      .then(res => {
+        const { routeNames } = navigation.getState();
+        let a = routeNames.includes('Raterestaurant');
+        if (a) {
+          setShowRate(false);
+          setInRate(true);
+        } else {
+          setShowRate(res.data.show);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
+
+  getRate();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.containerImage}>
+    <View
+      style={[
+        styles.container,
+        { maxHeight: !showRate && inRate ? 210 : 150 },
+      ]}>
+      <View
+        style={[
+          styles.containerImage,
+          { flex: !showRate && inRate ? 0.5 : 0.5 },
+        ]}>
         <Image
           style={styles.image}
           source={{
@@ -17,7 +53,11 @@ const Restaurant = ({ image, name, stars, location, username }) => {
           }}
         />
       </View>
-      <View style={styles.containerInfo}>
+      <View
+        style={[
+          styles.containerInfo,
+          { flex: !showRate && inRate ? 0.5 : 0.5 },
+        ]}>
         <Text style={styles.text}>Nombre: {name}</Text>
         <Text style={styles.text}>
           Puntuacion: {stars}
@@ -34,8 +74,22 @@ const Restaurant = ({ image, name, stars, location, username }) => {
           />
         </Text>
         <Text style={styles.text}>Ubicacion: {location}</Text>
-        <Text style={{ fontSize: 3 }}>{username}</Text>
-        <Button title="Calificar" width="90%" />
+        {showRate && (
+          <Button
+            title="Calificar"
+            width="90%"
+            handlePress={() =>
+              navigation.navigate('Raterestaurant', {
+                username,
+                id,
+                image,
+                name,
+                stars,
+                location,
+              })
+            }
+          />
+        )}
       </View>
     </View>
   );
@@ -45,7 +99,6 @@ export default Restaurant;
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: 150,
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#d22',
@@ -54,12 +107,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   containerImage: {
-    flex: 0.4,
     width: '100%',
     height: '100%',
   },
   containerInfo: {
-    flex: 0.6,
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',

@@ -7,7 +7,7 @@ import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 
 const Index = ({ navigation, route }) => {
-  console.log(route);
+  const { username } = route.params;
   const [restaurantes, setRestaurantes] = useState([]);
   const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
 
@@ -30,7 +30,12 @@ const Index = ({ navigation, route }) => {
   return (
     <SafeAreaView onTouchStart={getResource} style={{ minHeight: '100%' }}>
       <ScrollView>
-        {restaurantes && <RestaurantList username={'holi'} restaurant={restaurantes} />}
+        {restaurantes &&
+          <RestaurantList
+            username={username}
+            restaurant={restaurantes}
+            navigation={navigation}
+          />}
       </ScrollView>
     </SafeAreaView>
   );
