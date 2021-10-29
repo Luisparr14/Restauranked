@@ -2,11 +2,12 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 
 const Index = ({ navigation, route }) => {
+  console.log(navigation.canGoBack());
   const { username } = route.params;
   const [restaurantes, setRestaurantes] = useState([]);
   const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
@@ -28,7 +29,7 @@ const Index = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView onTouchStart={getResource} style={{ minHeight: '100%' }}>
+    <SafeAreaView onTouchStart={getResource} style={{ minHeight: '90%' }}>
       <ScrollView>
         {restaurantes &&
           <RestaurantList

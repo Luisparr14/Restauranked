@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 
-const RateButton = ({ number, background, active }) => {
+const RateButton = ({ number, background, active, handlePress }) => {
   if (active) {
     background = '#43bb91';
   }
   return (
     <View style={[styles.button, { backgroundColor: background || '#433432' }]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handlePress}>
         <Text style={styles.text}>{number}</Text>
       </TouchableOpacity>
     </View>

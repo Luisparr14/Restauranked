@@ -41,7 +41,7 @@ export default function Login({ navigation }) {
               {
                 text: 'OK',
                 onPress: () =>
-                  navigation.navigate('Inicio', {
+                  navigation.replace('Inicio', {
                     username,
                   }),
               },
