@@ -20,9 +20,7 @@ export const url = () => {
           ruta = res.request.responseURL;
         }
       })
-      .catch(() => {
-        console.log('error');
-       });
+      .catch((error) => {});
   }
   return ruta + 'api';
 };

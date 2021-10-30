@@ -4,6 +4,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Button from './Button';
 import { url } from '../Configs/Config';
+import Icon from './Icon';
+//ICONS
+import Name from '../assets/icons/Name.png';
+import Star from '../assets/icons/Star.png';
+import Location from '../assets/icons/Location.png';
+
 const Restaurant = ({
   id,
   image,
@@ -58,22 +64,22 @@ const Restaurant = ({
           styles.containerInfo,
           { flex: !showRate && inRate ? 0.5 : 0.5 },
         ]}>
-        <Text style={styles.text}>Nombre: {name}</Text>
+        {/* //Name */}
         <Text style={styles.text}>
-          Puntuacion: {stars}
-          <Image
-            style={{
-              width: 15,
-              height: 15,
-              alignSelf: 'flex-start',
-              padding: 5,
-            }}
-            source={{
-              uri: 'https://cdn-icons-png.flaticon.com/512/616/616489.png',
-            }}
-          />
+          <Icon icon={Name} />
+          {name}
         </Text>
-        <Text style={styles.text}>Ubicacion: {location}</Text>
+        {/* //Rate */}
+        <Text style={styles.text}>
+          <Icon icon={Star} />
+          {stars}
+        </Text>
+        {/* //Location */}
+        <Text style={styles.text}>
+          <Icon icon={Location} />
+          {location}
+        </Text>
+        {/* //RateButton */}
         {showRate && (
           <Button
             title="Calificar"
@@ -113,12 +119,15 @@ const styles = StyleSheet.create({
   containerInfo: {
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   text: {
     width: '100%',
-    fontSize: 17,
-    padding: 5,
+    fontSize: 13,
+    paddingLeft: 5,
+    color: '#000',
+    textAlignVertical: 'center',
+    textTransform: 'uppercase',
   },
   image: {
     width: '100%',

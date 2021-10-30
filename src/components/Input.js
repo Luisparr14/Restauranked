@@ -6,6 +6,7 @@ const Input = ({ placeholder, onChange, value, pass }) => {
     <TextInput
       style={styles.inputs}
       placeholder={placeholder}
+      placeholderTextColor="#000"
       onChangeText={onChange}
       value={value}
       secureTextEntry={pass || false}
@@ -23,5 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     margin: '2%',
     paddingLeft: 5,
+    color: '#000',
   },
 });

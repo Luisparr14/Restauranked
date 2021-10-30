@@ -13,7 +13,7 @@ const Button = ({ title, handlePress, width, height, background }) => {
         },
       ]}>
       <TouchableWithoutFeedback onPress={handlePress}>
-        <Text>{title}</Text>
+        <Text style={styles.text}>{title}</Text>
       </TouchableWithoutFeedback>
     </View>
   );
@@ -29,5 +29,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    color: '#000',
   },
 });
