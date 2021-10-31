@@ -47,7 +47,7 @@ const AddRestaurant = ({ navigation }) => {
           setProgress(actualProgress);
         },
         error => {
-          console.log('error', error);
+          console.error('error', error);
         },
       );
       await uploadTask;
@@ -79,15 +79,25 @@ const AddRestaurant = ({ navigation }) => {
           });
           if (response.data.ok) {
             let urlImage = await uploadImage();
-            await axios.put(`${url()}/restaurantes/${response.data.data.id}`, {
-              name: restaurantName,
-              location,
-              image: urlImage,
-            });
-            Alert.alert('Restaurante agregado');
-            setTimeout(() => {
-              navigation.navigate('Todos');
-            }, 1000);
+            await axios
+              .put(`${url()}/restaurantes/${response.data.data.id}`, {
+                name: restaurantName,
+                location,
+                image: urlImage,
+              })
+              .then(res => {
+                if (res.data.ok) {
+                  Alert.alert('Exito', 'Restaurante agregado correctamente', [
+                    {
+                      text: 'OK',
+                      onPress: () => navigation.navigate('Todos'),
+                    },
+                  ]);
+                }
+              })
+              .catch(err => {
+                Alert.alert('Error', err);
+              });
 
             setRestaurantName('');
             setLocation('');

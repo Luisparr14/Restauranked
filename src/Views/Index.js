@@ -7,7 +7,6 @@ import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 
 const Index = ({ navigation, route }) => {
-  console.log(navigation.canGoBack());
   const { username } = route.params;
   const [restaurantes, setRestaurantes] = useState([]);
   const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);

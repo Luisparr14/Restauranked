@@ -51,7 +51,7 @@ export default function Login({ navigation }) {
           }
         })
         .catch(function (error) {
-          console.log(error, 'hola');
+          console.error(error);
         });
     }
   };

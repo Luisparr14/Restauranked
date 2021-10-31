@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     margin: '2%',
     width: '30%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 2,
   },
   buttons: {
     display: 'flex',

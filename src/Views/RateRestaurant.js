@@ -97,7 +97,7 @@ const RateRestaurant = ({ route, navigation }) => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   };

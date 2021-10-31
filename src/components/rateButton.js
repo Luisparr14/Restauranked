@@ -1,16 +1,17 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const RateButton = ({ number, background, active, handlePress }) => {
   if (active) {
     background = '#43bb91';
   }
   return (
-    <View style={[styles.button, { backgroundColor: background || '#433432' }]}>
-      <TouchableOpacity onPress={handlePress}>
-        <Text style={styles.text}>{number}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={[styles.button, { backgroundColor: background || '#433391' }]}
+      onPress={handlePress}>
+      <Text style={styles.text}>{number}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   button: {
     width: 50,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 2,
   },
   text: {
     fontSize: 20,

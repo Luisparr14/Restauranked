@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#d22',
     margin: 7,
     padding: 8,
-    borderRadius: 10,
+    borderRadius: 2,
   },
   containerImage: {
     width: '100%',
