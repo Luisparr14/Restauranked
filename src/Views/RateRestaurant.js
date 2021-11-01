@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import Button from '../components/Button';
+import { Button } from '../components/Buttons';
 import RateButton from '../components/rateButton';
 import Restaurant from '../components/Restaurant';
 import { url } from '../Configs/Config';

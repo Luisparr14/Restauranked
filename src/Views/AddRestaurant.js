@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
-import Button from '../components/Button';
+import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import ProgressBar from 'react-native-progress/Bar';
 import { launchImageLibrary } from 'react-native-image-picker';

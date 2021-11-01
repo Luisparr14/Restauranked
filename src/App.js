@@ -13,15 +13,34 @@ import Login from './Views/Login';
 import Register from './Views/Register';
 import Index from './Views/Index';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { StatusBar } from 'react-native';
+import { StatusBar, Button, StyleSheet, Alert } from 'react-native';
 import AddRestaurant from './Views/AddRestaurant';
 import RateRestaurant from './Views/RateRestaurant';
+import { ImageButton } from './components/Buttons';
+import LogOutImage from './assets/icons/LogOut.png';
 
 const Drawer = createDrawerNavigator();
-function MyDrawer({ route }) {
+function MyDrawer({ route, navigation }) {
   const { username } = route.params;
+
+  const LogOut = () => {
+    Alert.alert('Cerrar sesion', '¿Esta seguro que quiere cerrar sesion?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      { text: 'YES', onPress: () => navigation.replace('Login') },
+    ]);
+  };
+
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        headerRight: () => (
+          <ImageButton handlePress={LogOut} image={LogOutImage} />
+        ),
+      }}>
       <Drawer.Screen
         initialParams={{ username }}
         name="Todos"
@@ -34,6 +53,7 @@ function MyDrawer({ route }) {
       />
       <Drawer.Screen
         initialParams={{ username }}
+        options={{}}
         name="Agregar restaurante"
         component={AddRestaurant}
       />
@@ -85,3 +105,12 @@ const App = () => {
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

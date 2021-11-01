@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View, Text, BackHandler } from 'react-native';
 import axios from 'axios';
 import { url, getUrl } from '../Configs/Config';
-import Button from '../components/Button';
+import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import Title from '../components/Title';
 

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import Button from './Button';
+import { Button } from './Buttons';
 import { url } from '../Configs/Config';
 import Icon from './Icon';
 //ICONS

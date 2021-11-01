@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
 const Button = ({ title, handlePress, width, height, background }) => {
   return (
@@ -19,7 +25,24 @@ const Button = ({ title, handlePress, width, height, background }) => {
   );
 };
 
-export default Button;
+const ImageButton = ({ image, handlePress, width, height }) => {
+  return (
+    <TouchableWithoutFeedback activeOpacity={0.7} onPress={handlePress}>
+      <Image
+        source={image}
+        style={[
+          styles.buttonImage,
+          {
+            width: width || 30,
+            height: height || 30,
+          },
+        ]}
+      />
+    </TouchableWithoutFeedback>
+  );
+};
+
+export { Button, ImageButton };
 
 const styles = StyleSheet.create({
   button: {
@@ -29,6 +52,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonImage: {
+    justifyContent: 'center',
+    marginRight: 7,
   },
   text: {
     textAlign: 'center',

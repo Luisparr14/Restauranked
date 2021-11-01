@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
-import Button from '../components/Button';
+import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import axios from 'axios';
