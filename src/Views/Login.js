@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, StyleSheet, View, Text, BackHandler } from 'react-native';
 import axios from 'axios';
 import { url, getUrl } from '../Configs/Config';
 import Button from '../components/Button';
@@ -9,6 +9,27 @@ import Title from '../components/Title';
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Salir', '¿Estas seguro que quiere salir de la app?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const handleChangePass = e => {
     setPassword(e);

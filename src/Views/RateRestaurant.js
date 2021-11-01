@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import Button from '../components/Button';
 import RateButton from '../components/rateButton';
 import Restaurant from '../components/Restaurant';
@@ -73,18 +73,19 @@ const RateRestaurant = ({ route, navigation }) => {
         .post(`${url}/calificar`, data)
         .then(calificar => {
           if (calificar.status === 200) {
-            Alert.alert('Success', 'Your rate has been submitted', [
+            Alert.alert('Exito', 'Tu calificacion se ha completado con exito', [
               {
                 text: 'OK',
                 onPress: () => navigation.replace('Inicio', { username }),
               },
             ]);
           } else {
-            Alert.alert('Error', 'Something went wrong');
+            Alert.alert('Error', 'Ah ocurrido un error');
           }
         })
         .catch(err => {
-          Alert.alert('Error', 'Something went wrong', err);
+          console.error(err);
+          Alert.alert('Error', 'Ah ocurrido un error');
         });
     }
   };

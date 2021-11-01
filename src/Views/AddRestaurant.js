@@ -17,7 +17,8 @@ import {
 
 const storage = getStorage(app);
 
-const AddRestaurant = ({ navigation }) => {
+const AddRestaurant = ({ navigation, route }) => {
+  const { username } = route.params;
   const [restaurantName, setRestaurantName] = useState('');
   const [location, setLocation] = useState('');
 
@@ -93,7 +94,7 @@ const AddRestaurant = ({ navigation }) => {
                   Alert.alert('Exito', 'Restaurante agregado correctamente', [
                     {
                       text: 'OK',
-                      onPress: () => navigation.navigate('Todos'),
+                      onPress: () => navigation.replace('Inicio', { username }),
                     },
                   ]);
                 }

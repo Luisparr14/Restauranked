@@ -2,7 +2,7 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { Alert, BackHandler, SafeAreaView, ScrollView } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 
@@ -13,7 +13,25 @@ const Index = ({ navigation, route }) => {
 
   useEffect(() => {
     getResource();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const backAction = () => {
+      Alert.alert('Salir', 'Esta seguro que quiere salir de la app', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getResource = () => {
