@@ -41,7 +41,7 @@ export const Register = ({ navigation }) => {
       ]);
     } else {
       axios
-        .post(`${url()}/register`, data, header)
+        .post(`${url}/register`, data, header)
         .then(function (response) {
           if (response.data.ok) {
             Alert.alert(

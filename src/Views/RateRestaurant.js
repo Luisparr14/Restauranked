@@ -70,7 +70,7 @@ const RateRestaurant = ({ route, navigation }) => {
         rate,
       };
       axios
-        .post(`${url()}/calificar`, data)
+        .post(`${url}/calificar`, data)
         .then(calificar => {
           if (calificar.status === 200) {
             Alert.alert('Success', 'Your rate has been submitted', [

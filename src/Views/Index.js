@@ -9,7 +9,7 @@ import { url } from '../Configs/Config';
 const Index = ({ navigation, route }) => {
   const { username } = route.params;
   const [restaurantes, setRestaurantes] = useState([]);
-  const [direccion, setdireccion] = useState(`${url()}/restaurantes/${navigation.getState().index}`);
+  const [direccion, setdireccion] = useState(`${url}/restaurantes/${navigation.getState().index}`);
 
   useEffect(() => {
     getResource();
@@ -17,7 +17,7 @@ const Index = ({ navigation, route }) => {
   }, []);
 
   const getResource = () => {
-    setdireccion(`${url()}/restaurantes/${navigation.getState().index}`);
+    setdireccion(`${url}/restaurantes/${navigation.getState().index}`);
     try {
       axios(direccion).then((res => {
         setRestaurantes(res.data);

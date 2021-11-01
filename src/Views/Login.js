@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, Text } from 'react-native';
 import axios from 'axios';
-import { url } from '../Configs/Config';
+import { url, getUrl } from '../Configs/Config';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Title from '../components/Title';
@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
       ]);
     } else {
       axios
-        .post(`${url()}/login`, data, header)
+        .post(`${url}/login`, data, header)
         .then(function (response) {
           if (response.data.passwordV) {
             Alert.alert('Genial!!', `${response.data.msg}`, [
@@ -57,8 +57,12 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View onTouchStart={() => url()} style={styles.container}>
-      <Text>{url()}</Text>
+    <View
+      onTouchStart={() => {
+        getUrl();
+      }}
+      style={styles.container}>
+      <Text>{url}</Text>
       <Title />
       <View style={styles.loginForm}>
         <Input placeholder="Usuario" onChange={handleChangeUser} />

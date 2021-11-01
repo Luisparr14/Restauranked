@@ -75,7 +75,7 @@ const AddRestaurant = ({ navigation }) => {
         try {
           setProgress(0);
           setLoading(true);
-          const response = await axios.post(`${url()}/restaurantes`, {
+          const response = await axios.post(`${url}/restaurantes`, {
             name: restaurantName,
             location,
             image: '',
@@ -83,7 +83,7 @@ const AddRestaurant = ({ navigation }) => {
           if (response.data.ok) {
             let urlImage = await uploadImage();
             await axios
-              .put(`${url()}/restaurantes/${response.data.data.id}`, {
+              .put(`${url}/restaurantes/${response.data.data.id}`, {
                 name: restaurantName,
                 location,
                 image: urlImage,

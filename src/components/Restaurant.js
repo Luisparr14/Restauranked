@@ -23,7 +23,7 @@ const Restaurant = ({
   const [inRate, setInRate] = React.useState(false);
   async function getRate() {
     await axios
-      .get(`${url()}/calificaciones/${id}/${username}`)
+      .get(`${url}/calificaciones/${id}/${username}`)
       .then(res => {
         const { routeNames } = navigation.getState();
         let a = routeNames.includes('Raterestaurant');

@@ -1,34 +1,43 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
+let url = '';
 
 let urls = [
-  'http://192.168.56.1:3001',
-  'http://192.168.122.1:3001',
-  'https://restauranked.herokuapp.com',
-  'http://192.168.122.1:3001',
+  'http://192.168.1.13:3101',
   'http://192.168.1.13:3001',
+  'https://restauranked.herokuapp.com',
 ];
 
-
-var ruta = '';
-export const url = () => {
-  for (let i = 0; i < urls.length; i++) {
-    const requestUrl = urls[i];
-    axios(requestUrl)
-    .then(res => {
-        console.log('urls[i]', urls[i]);
-        if (res !== undefined) {
-          ruta = res.request.responseURL;
-          console.log(ruta);
-          return ruta;
-        }
-      })
-      .catch((error) => {
-        console.log(ruta, 'ruterr');
-        console.error(error);
-      });
+const getUrl = () => {
+  let i = 0;
+  while (i < urls.length) {
+    const element = urls[i];
+    axios.get(element).then(res => {
+      if (url === '') {
+        url = element + '/api';
+      }
+    // eslint-disable-next-line handle-callback-err
+    }).catch(err => {
+      // console.error(err);
+    });
+    i++;
   }
-  return ruta + 'api';
 };
 
+export { url, getUrl };
 
+
+// const getUrl = () => {
+//   for (let i = 0; i < urls.length; i++) {
+//     console.log(url);
+//     const element = urls[i];
+//     axios.get(element).then(res => {
+//       if (url === '') {
+//         console.error(url, i);
+//         url = element + '/api';
+//       }
+//     }).catch(err => {
+//       console.log(err);
+//     });
+//   }
+// };
