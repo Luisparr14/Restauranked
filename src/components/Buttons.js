@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   Image,
@@ -7,16 +8,17 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-const Button = ({ title, handlePress, width, height, background }) => {
+const Button = ({ title, handlePress, width, height, background, disable }) => {
   return (
     <TouchableOpacity
+      disabled={disable}
       activeOpacity={0.7}
       style={[
         styles.button,
         {
           width: width || '40%',
           height: height || 30,
-          backgroundColor: background || '#FFF',
+          backgroundColor: disable ? '#666' : background || '#FFF',
         },
       ]}
       onPress={handlePress}>

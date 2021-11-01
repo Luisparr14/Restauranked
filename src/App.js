@@ -13,7 +13,7 @@ import Login from './Views/Login';
 import Register from './Views/Register';
 import Index from './Views/Index';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { StatusBar, Button, StyleSheet, Alert } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
 import AddRestaurant from './Views/AddRestaurant';
 import RateRestaurant from './Views/RateRestaurant';
 import { ImageButton } from './components/Buttons';
@@ -49,6 +49,11 @@ function MyDrawer({ route, navigation }) {
       <Drawer.Screen
         initialParams={{ username }}
         name="Por puntuacion"
+        component={Index}
+      />
+      <Drawer.Screen
+        initialParams={{ username }}
+        name="Por nombre"
         component={Index}
       />
       <Drawer.Screen
@@ -105,12 +110,3 @@ const App = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

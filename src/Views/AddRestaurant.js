@@ -26,6 +26,7 @@ const AddRestaurant = ({ navigation, route }) => {
   const [imageSelected, setimageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+
   const handleChangeRestaurantName = e => {
     setRestaurantName(e);
   };
@@ -164,8 +165,16 @@ const AddRestaurant = ({ navigation, route }) => {
         </View>
       )}
       <View>
-        <Button title="Select Image" handlePress={selectImage} />
-        <Button title="Agregar restaurante" handlePress={handleSubmit} />
+        <Button
+          disable={loading}
+          title="Select Image"
+          handlePress={selectImage}
+        />
+        <Button
+          disable={loading}
+          title="Agregar restaurante"
+          handlePress={handleSubmit}
+        />
       </View>
     </View>
   );
