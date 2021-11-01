@@ -36,7 +36,10 @@ const AddRestaurant = ({ navigation }) => {
   const uploadImage = async () => {
     let urlImage = '';
     try {
-      const refFile = ref(storage, `restaurantes/${file.fileName}`);
+      const refFile = ref(
+        storage,
+        `restaurantes/${restaurantName} - ${location}`,
+      );
       const blob = await (await fetch(file.uri)).blob(); //get blob from uri
       const uploadTask = uploadBytesResumable(refFile, blob);
       uploadTask.on(

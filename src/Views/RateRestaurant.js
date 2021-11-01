@@ -65,39 +65,26 @@ const RateRestaurant = ({ route, navigation }) => {
       Alert.alert('Por favor selecciona una puntuacion');
     } else {
       const data = {
-        id,
-        score: rate,
+        username,
+        restaurant: id,
+        rate,
       };
       axios
-        .post(`${url()}/score`, data)
-        .then(score => {
-          const dataC = {
-            username,
-            restaurante: id,
-            calificacion: rate,
-          };
-          if (score.status === 200) {
-            axios
-              .post(`${url()}/calificar`, dataC)
-              .then(calificar => {
-                if (calificar.status === 200) {
-                  Alert.alert('Success', 'Your rate has been submitted', [
-                    {
-                      text: 'OK',
-                      onPress: () => navigation.replace('Inicio', { username }),
-                    },
-                  ]);
-                }
-              })
-              .catch(err => {
-                Alert.alert('Error', 'Something went wrong', err);
-              });
+        .post(`${url()}/calificar`, data)
+        .then(calificar => {
+          if (calificar.status === 200) {
+            Alert.alert('Success', 'Your rate has been submitted', [
+              {
+                text: 'OK',
+                onPress: () => navigation.replace('Inicio', { username }),
+              },
+            ]);
           } else {
-            Alert.alert('Something went wrong');
+            Alert.alert('Error', 'Something went wrong');
           }
         })
         .catch(err => {
-          console.error(err);
+          Alert.alert('Error', 'Something went wrong', err);
         });
     }
   };
