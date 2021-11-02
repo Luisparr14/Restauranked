@@ -85,7 +85,7 @@ export default function Login({ navigation }) {
       }}
       style={styles.container}>
       <Text>{url}</Text>
-      <Title />
+      <Title subtitle="Login" />
       <View style={styles.loginForm}>
         <Input placeholder="Usuario" onChange={handleChangeUser} />
         <Input

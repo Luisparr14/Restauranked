@@ -2,7 +2,7 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Alert, BackHandler, SafeAreaView, ScrollView } from 'react-native';
+import { Alert, BackHandler, SafeAreaView, ScrollView, Text } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
 import { backgroundColor } from '../Configs/Const';
@@ -32,7 +32,7 @@ const Index = ({ navigation, route }) => {
     );
 
     return () => backHandler.remove();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getResource = () => {
@@ -55,6 +55,9 @@ const Index = ({ navigation, route }) => {
             restaurant={restaurantes}
             navigation={navigation}
           />}
+        {restaurantes.length === 0 &&
+          <Text>Cargando...</Text>
+        }
       </ScrollView>
     </SafeAreaView>
   );

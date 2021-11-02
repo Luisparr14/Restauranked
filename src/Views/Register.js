@@ -84,7 +84,7 @@ export const Register = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Title />
+      <Title subtitle="Register" />
       <View style={styles.loginForm}>
         <Input
           onChange={handleChangeUsername}

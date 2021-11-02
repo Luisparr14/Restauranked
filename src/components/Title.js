@@ -1,17 +1,32 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { primaryColor } from '../Configs/Const';
 
-const Title = () => {
+const Title = ({ subtitle }) => {
   return (
-    <Text style={styles.title}>
-      Restau<Text style={styles.title2}>RANKED</Text>
-    </Text>
+    <View style={styles.containerTitle}>
+      <Text style={styles.title}>
+        Restau<Text style={styles.title2}>RANKED</Text>
+      </Text>
+      <Text style={styles.subTitle}>{subtitle}</Text>
+    </View>
   );
 };
 
 export default Title;
 
 const styles = StyleSheet.create({
+  containerTitle: {
+    position: 'absolute',
+    top: 30,
+  },
+  subTitle: {
+    color: primaryColor,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+    textAlign: 'center',
+  },
   title: {
     padding: 10,
     margin: 10,
@@ -19,6 +34,6 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   title2: {
-    color: '#fff',
+    color: primaryColor,
   },
 });
