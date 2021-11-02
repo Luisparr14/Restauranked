@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, BackHandler, SafeAreaView, ScrollView } from 'react-native';
 import RestaurantList from '../components/RestaurantList';
 import { url } from '../Configs/Config';
+import { backgroundColor } from '../Configs/Const';
 
 const Index = ({ navigation, route }) => {
   const { username } = route.params;
@@ -14,7 +15,7 @@ const Index = ({ navigation, route }) => {
   useEffect(() => {
     getResource();
     const backAction = () => {
-      Alert.alert('Salir', 'Esta seguro que quiere salir de la app', [
+      Alert.alert('Salir', '¿Esta seguro que quiere salir de la app?', [
         {
           text: 'Cancel',
           onPress: () => null,
@@ -46,7 +47,7 @@ const Index = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView onTouchStart={getResource} style={{ minHeight: '90%' }}>
+    <SafeAreaView onTouchStart={getResource} style={{ minHeight: '90%', backgroundColor: backgroundColor }}>
       <ScrollView>
         {restaurantes &&
           <RestaurantList
@@ -60,12 +61,3 @@ const Index = ({ navigation, route }) => {
 };
 
 export default Index;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#f00',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });

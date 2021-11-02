@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
+import { borderRadius, disabledColor, secondaryColor } from '../Configs/Const';
 
 const Button = ({ title, handlePress, width, height, background, disable }) => {
   return (
@@ -18,7 +19,9 @@ const Button = ({ title, handlePress, width, height, background, disable }) => {
         {
           width: width || '40%',
           height: height || 30,
-          backgroundColor: disable ? '#666' : background || '#FFF',
+          backgroundColor: disable
+            ? disabledColor
+            : background || secondaryColor,
         },
       ]}
       onPress={handlePress}>
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   button: {
     display: 'flex',
     margin: 5,
-    borderRadius: 2,
+    borderRadius: borderRadius,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',

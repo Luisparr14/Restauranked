@@ -18,6 +18,7 @@ import AddRestaurant from './Views/AddRestaurant';
 import RateRestaurant from './Views/RateRestaurant';
 import { ImageButton } from './components/Buttons';
 import LogOutImage from './assets/icons/LogOut.png';
+import { backgroundColor } from './Configs/Const';
 
 const Drawer = createDrawerNavigator();
 function MyDrawer({ route, navigation }) {
@@ -40,6 +41,7 @@ function MyDrawer({ route, navigation }) {
         headerRight: () => (
           <ImageButton handlePress={LogOut} image={LogOutImage} />
         ),
+        headerBackgroundContainerStyle: backgroundColor,
       }}>
       <Drawer.Screen
         initialParams={{ username }}
@@ -58,7 +60,7 @@ function MyDrawer({ route, navigation }) {
       />
       <Drawer.Screen
         initialParams={{ username }}
-        options={{}}
+        options={{ headerShown: false }}
         name="Agregar restaurante"
         component={AddRestaurant}
       />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
+import { borderRadius, secondaryColor } from '../Configs/Const';
 
 const Input = ({ placeholder, onChange, value, pass }) => {
   return (
@@ -20,10 +21,12 @@ const styles = StyleSheet.create({
   inputs: {
     alignSelf: 'center',
     width: '70%',
-    borderRadius: 2,
+    borderRadius: borderRadius,
     backgroundColor: '#fff',
     margin: '2%',
     paddingLeft: 5,
     color: '#000',
+    borderColor: secondaryColor,
+    borderWidth: 0.2,
   },
 });

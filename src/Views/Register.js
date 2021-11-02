@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, BackHandler, StyleSheet, View } from 'react-native';
 import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import axios from 'axios';
 
 import { url } from '../Configs/Config';
+import { backgroundColor, borderRadius } from '../Configs/Const';
 
 export const Register = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChangeUsername = e => {
     setUsername(e);
@@ -95,7 +109,7 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f00',
+    backgroundColor: backgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -114,7 +128,7 @@ const styles = StyleSheet.create({
     margin: '2%',
     width: '30%',
     height: '100%',
-    borderRadius: 2,
+    borderRadius: borderRadius,
   },
   buttons: {
     display: 'flex',

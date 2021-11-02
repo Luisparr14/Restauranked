@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Alert,
+  BackHandler,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import ProgressBar from 'react-native-progress/Bar';
@@ -14,6 +21,7 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from 'firebase/storage';
+import { backgroundColor } from '../Configs/Const';
 
 const storage = getStorage(app);
 
@@ -26,6 +34,19 @@ const AddRestaurant = ({ navigation, route }) => {
   const [imageSelected, setimageSelected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.replace('Inicio', { username });
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChangeRestaurantName = e => {
     setRestaurantName(e);
@@ -187,7 +208,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
-    backgroundColor: '#443',
+    backgroundColor: backgroundColor,
   },
 
   progress: {

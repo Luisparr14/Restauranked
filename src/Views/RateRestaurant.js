@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Alert, BackHandler } from 'react-native';
 import { Button } from '../components/Buttons';
 import RateButton from '../components/rateButton';
 import Restaurant from '../components/Restaurant';
 import { url } from '../Configs/Config';
+import { backgroundColor } from '../Configs/Const';
 
 const RateRestaurant = ({ route, navigation }) => {
   const { id, image, name, location, stars, username } = route.params;
@@ -14,6 +15,19 @@ const RateRestaurant = ({ route, navigation }) => {
   const [activeButton4, setActiveButton4] = React.useState(false);
   const [activeButton5, setActiveButton5] = React.useState(false);
   const [rate, setRate] = useState(0);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const ActiveButton1 = () => {
     setActiveButton1(true);
@@ -134,7 +148,6 @@ const RateRestaurant = ({ route, navigation }) => {
         </View>
         <Button
           title="Enviar calificación"
-          background="#4565a3"
           width="80%"
           height={45}
           handlePress={handleSubmit}
@@ -149,6 +162,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     height: '100%',
+    backgroundColor: backgroundColor,
   },
   buttonContainer: {
     display: 'flex',

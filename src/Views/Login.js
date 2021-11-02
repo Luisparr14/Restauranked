@@ -5,6 +5,7 @@ import { url, getUrl } from '../Configs/Config';
 import { Button } from '../components/Buttons';
 import Input from '../components/Input';
 import Title from '../components/Title';
+import { backgroundColor, primaryColor } from '../Configs/Const';
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState('');
@@ -107,7 +108,7 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f00',
+    backgroundColor: backgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
   },

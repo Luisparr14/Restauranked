@@ -9,6 +9,7 @@ import Icon from './Icon';
 import Name from '../assets/icons/Name.png';
 import Star from '../assets/icons/Star.png';
 import Location from '../assets/icons/Location.png';
+import { borderRadius, primaryColor } from '../Configs/Const';
 
 const Restaurant = ({
   id,
@@ -107,10 +108,10 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: '#d22',
+    backgroundColor: primaryColor,
     margin: 7,
     padding: 8,
-    borderRadius: 2,
+    borderRadius: borderRadius,
   },
   containerImage: {
     width: '100%',
@@ -133,5 +134,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+    borderRadius: borderRadius,
   },
 });
